@@ -1,0 +1,14 @@
+{
+    "$schema": "./node_modules/ng-packagr.schema.json",
+    "lib": {
+        "entryFile": "./public_api.ts",
+        "cssUrl": "inline",
+        "languageLevel": [
+            "dom",
+            "es2017"
+        ]
+    },
+    "whitelistedNonPeerDependencies": [
+
+    ]
+}
