@@ -21,26 +21,19 @@ export class NormalBinaryTree<T> extends BinaryTree<T> {
     insert(element: T): void {
         const item = new BinaryTreeItem<T>(element[this.binaryKey], element);
         if (this.root) {
-            (function _insertNode(node: BinaryTreeItem<T>, newNode: BinaryTreeItem<T>) {
-                if (node.value > newNode.value) {
-                    if (node.left !== null) {
-                        _insertNode(node.left, newNode);
-                    } else {
-                        node.left = newNode;
-                        newNode.parent = node;
-                    }
-                } else {
-                    if (node.right !== null) {
-                        _insertNode(node.right, newNode);
-                    } else {
-                        node.right = newNode;
-                        newNode.parent = node;
-                    }
-                }
-            })(this.root, item);
+            let temp = this.root;
+            while (temp[this.insertPosition(temp, item)] !== null) {
+                temp = temp[this.insertPosition(temp, item)];
+            }
+            temp[this.insertPosition(temp, item)] = item;
+            item.parent = temp;
         } else {
             this.root = item;
         }
+    }
+
+    private insertPosition(target: any, source: any) {
+        return target.value > source.value ? 'left' : 'right';
     }
 }
 

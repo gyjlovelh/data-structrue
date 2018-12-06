@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NormalBinaryTree} from '../../structrue/normal-binary-tree';
 import {RedBlackTree} from '../../structrue/red-black-tree';
+import {performance} from '../../performance/performance';
 
 @Component({
     selector: 'hs-root',
@@ -11,26 +12,17 @@ export class AppComponent {
 
     constructor() {
         const arr = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 100000; i++) {
             arr.push({
                 $binaryId: this.getUUID(),
                 name: `name${i}`
             });
         }
+        console.log(this.initTree(arr));
 
-        const bi = new NormalBinaryTree(arr);
-        const rbt = new RedBlackTree(arr);
-        console.log('BinaryTree:', bi, rbt);
-
-        console.log(bi.find(arr[2].$binaryId));
-        console.log(rbt.find(arr[2].$binaryId));
-
-        console.log('remove', bi.remove(arr[3].$binaryId));
-        console.log('remove', rbt.remove(arr[4].$binaryId));
-
-        console.log('BinaryTree:', bi, rbt);
-
+        console.log(this.initRedBlackTree(arr));
     }
+
 
     getUUID(len: number = 36) {
         const uuid = [];
@@ -45,4 +37,15 @@ export class AppComponent {
         }
         return uuid.join('').replace(/-/g, '');
     }
+
+    @performance()
+    initTree(arr) {
+        return new NormalBinaryTree(arr);
+    }
+
+    @performance()
+    initRedBlackTree(arr) {
+         return new RedBlackTree(arr);
+    }
+
 }
