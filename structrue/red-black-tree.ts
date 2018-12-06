@@ -112,7 +112,7 @@ export class RedBlackNode<T> extends BinaryTreeItem<T> {
     }
 }
 
-enum ColorType {
+export enum ColorType {
     RED = 'red',
     BLACK = 'black'
 }
