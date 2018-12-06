@@ -1,29 +1,26 @@
-## data-structure 提供树、链表、集合、字典等数据结构。
+## performance 测试函数执行耗时
 
-### 树：
-```
-BinaryTree: 二叉树顶层抽象类。 
-NormalBinaryTree: 普通二叉树。
-RedBlackTree：红黑树【自平衡树】。
-
-```
 #### 用法
 ```typescript
+export class Test {
+    
+    constructor() {
+        this.run1();
+    }
+    
+    @performance()
+    run1() {
+        ...
+    }
+    
+    @performance()
+    run2() {
+        ...
+    }
+}
 
-const array: Array<{
-    bId: string, 
-    name: string,
-    title: string,
-    ...
-}>;
-
-const nBinaryTree = new NormalBinaryTree(array, 'bId');
-nBinaryTree.find('xxx');
-nBinaryTree.remove('xxx')
-
-
-const rbTree = new RedBlackTree(array, 'bId');
-rbTree.find('xxx');
-rbTree.remove('xxx');
+>>> console <<<
+->【run1】函数执行完成共耗时：123ms
+->【run2】函数执行完成共耗时：345ms
 
 ```
