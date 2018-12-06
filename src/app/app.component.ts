@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {BinaryTree} from '../../structrue/binary-tree';
+import {NormalBinaryTree} from '../../structrue/normal-binary-tree';
+import {RedBlackTree} from '../../structrue/red-black-tree';
 
 @Component({
     selector: 'hs-root',
@@ -7,19 +8,28 @@ import {BinaryTree} from '../../structrue/binary-tree';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'data-structure';
 
     constructor() {
         const arr = [];
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 5; i++) {
             arr.push({
-                id: this.getUUID(),
+                $binaryId: this.getUUID(),
                 name: `name${i}`
             });
         }
 
-        const bi = new BinaryTree(arr, 'id');
-        console.log('BinaryTree:', bi);
+        const bi = new NormalBinaryTree(arr);
+        const rbt = new RedBlackTree(arr);
+        console.log('BinaryTree:', bi, rbt);
+
+        console.log(bi.find(arr[2].$binaryId));
+        console.log(rbt.find(arr[2].$binaryId));
+
+        console.log('remove', bi.remove(arr[3].$binaryId));
+        console.log('remove', rbt.remove(arr[4].$binaryId));
+
+        console.log('BinaryTree:', bi, rbt);
+
     }
 
     getUUID(len: number = 36) {

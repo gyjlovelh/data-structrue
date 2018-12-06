@@ -1,54 +1,26 @@
+
 /**
  * Created by guanyj on  12/6/18
  */
 
-export class BinaryTree<T> {
+export abstract class BinaryTree<T> {
 
-    /**
-     * 二叉树根元素
-     */
-    private root: BinaryTreeItem;
+    root: BinaryTreeItem<T>;
 
-    constructor(
-        public array: Array<T>,
-        public binaryKey: string = '$binaryId'
-    ) {
+    protected binaryKey: string;
+
+    constructor(array: Array<T>, binaryKey: string) {
+        this.binaryKey = binaryKey;
         array.forEach(item => {
             this.insert(item);
         });
     }
 
     /**
-     * insert into binaryTree normally
-     *
-     * i:Having all the properties of a two - fork sort tree;
-     * ii:the absolute value of the depth difference between the left subtree and the right subtree is not more than 1.
-     * iii:the left and right subtrees are both the two fork balance trees.
-     *
-     * param element
+     * 插入节点
+     * param {T} element
      */
-    insert(element: T): void {
-        const item = new BinaryTreeItem(element[this.binaryKey], element);
-        if (this.root) {
-            (function _insertNode(node: BinaryTreeItem, newNode: BinaryTreeItem) {
-                if (node.value > newNode.value) {
-                    if (node.left !== null) {
-                        _insertNode(node.left, newNode);
-                    } else {
-                        node.left = newNode;
-                    }
-                } else {
-                    if (node.right !== null) {
-                        _insertNode(node.right, newNode);
-                    } else {
-                        node.right = newNode;
-                    }
-                }
-            })(this.root, item);
-        } else {
-            this.root = item;
-        }
-    }
+    abstract insert(element: T): void;
 
     /**
      * 查找指定节点
@@ -58,7 +30,7 @@ export class BinaryTree<T> {
     find(binaryId: string | number): T {
         let result = null;
         if (this.root) {
-            (function _find(node: BinaryTreeItem, key: string | number) {
+            (function _find(node: BinaryTreeItem<T>, key: string | number) {
                 if (node.value === key) {
                     result = node.element;
                 } else if (node.value > key) {
@@ -76,19 +48,75 @@ export class BinaryTree<T> {
         }
         return result;
     }
+
+    /**
+     * 删除节点
+     * param {string | number} binaryId
+     * returns {T}
+     */
+    remove(binaryId: string | number): T {
+        const that = this;
+        const result = this.find(binaryId);
+        (function _removeNode(node, value) {
+            if (node === null) {
+                return null;
+            }
+            if (value < node.value) {
+                node.left = _removeNode(node.left, value);
+                return node;
+            } else if (value > node.value) {
+                node.right = _removeNode(node.right, value);
+                return node;
+            } else {
+                if (node.left === null && node.right === null) {
+                    node = null;
+                    return node;
+                }
+                if (node.left === null) {
+                    node = node.right;
+                    return node;
+                } else if (node.right === null) {
+                    node = node.left;
+                    return node;
+                }
+                const aux = that.findMinNode(node.right);
+                node.value  = aux.value;
+                node.right = _removeNode(node.right, aux.value);
+                return node;
+
+            }
+        })(this.root, binaryId);
+        return result;
+    }
+
+    /**
+     * 找到指定节点下的最小节点
+     * param {BinaryTreeItem<T>} node
+     * returns {BinaryTreeItem<T>}
+     */
+    findMinNode(node: BinaryTreeItem<T>) {
+        if (!node) {
+            node = this.root;
+        }
+        while (node && node.left !== null) {
+            node = node.left;
+        }
+        return node;
+    }
 }
 
-export class BinaryTreeItem {
-    value: string;
-    element: any;
-    left: BinaryTreeItem;
-    right: BinaryTreeItem;
+export class BinaryTreeItem<T> {
+    value: string | number;
+    element: T;
+    parent: BinaryTreeItem<T>;
+    left: BinaryTreeItem<T>;
+    right: BinaryTreeItem<T>;
 
     constructor(value, element) {
         this.value = value;
         this.element = element;
+        this.parent = null;
         this.left = null;
         this.right = null;
     }
 }
-
