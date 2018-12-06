@@ -25,7 +25,7 @@ export class BinaryTree<T> {
      * ii:the absolute value of the depth difference between the left subtree and the right subtree is not more than 1.
      * iii:the left and right subtrees are both the two fork balance trees.
      *
-     * @param element
+     * param element
      */
     insert(element: T): void {
         const item = new BinaryTreeItem(element[this.binaryKey], element);
@@ -52,8 +52,8 @@ export class BinaryTree<T> {
 
     /**
      * 查找指定节点
-     * @param {string | number} binaryId
-     * @returns {T}
+     * param {string | number} binaryId
+     * returns {T}
      */
     find(binaryId: string | number): T {
         let result = null;
