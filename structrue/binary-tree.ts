@@ -4,8 +4,7 @@
  */
 
 export abstract class BinaryTree<T> {
-
-    root: BinaryTreeItem<T>;
+    protected root: BinaryTreeItem<T>;
 
     protected binaryKey: string;
 

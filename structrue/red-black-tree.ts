@@ -4,13 +4,13 @@
 import {BinaryTree, BinaryTreeItem} from './binary-tree';
 
 export class RedBlackTree<T> extends BinaryTree<T> {
-    root: RedBlackNode<T>;
+    protected root: RedBlackNode<T>;
 
     constructor(array: Array<T>, binaryKey: string = '$binaryId') {
         super(array, binaryKey);
     }
 
-    insert(element: T) {
+    insert(element: T): void {
         const node = new RedBlackNode<T>(element[this.binaryKey], element);
         if (this.root) {
             let temp = this.root;
@@ -25,7 +25,7 @@ export class RedBlackTree<T> extends BinaryTree<T> {
         this.fix(node);
     }
 
-    private fix(node: RedBlackNode<T>) {
+    private fix(node: RedBlackNode<T>): void {
         // 当node.parent不存在时，即为情形1，跳出循环
         // 当node.parent.color === ColorType.BLACK时，即为情形2，跳出循环
         while (node.parent && node.parent.color !== ColorType.BLACK) {
@@ -72,7 +72,7 @@ export class RedBlackTree<T> extends BinaryTree<T> {
         }
     }
 
-    private rotate(node: RedBlackNode<T>) {
+    private rotate(node: RedBlackNode<T>): void {
         const y = node.parent;
         if (y.right === node) {
             if (y.parent) {
