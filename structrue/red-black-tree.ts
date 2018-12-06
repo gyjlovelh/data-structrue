@@ -100,7 +100,7 @@ export class RedBlackTree<T> extends BinaryTree<T> {
     }
 }
 
-class RedBlackNode<T> extends BinaryTreeItem<T> {
+export class RedBlackNode<T> extends BinaryTreeItem<T> {
     color: ColorType;
     parent: RedBlackNode<T>;
     left: RedBlackNode<T>;
