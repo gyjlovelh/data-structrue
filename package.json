@@ -1,6 +1,6 @@
 {
     "name": "@hibiscus/data-structure",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -11,8 +11,7 @@
         "publish": "npm version patch && ng-packagr -p ng-package.json && npm publish dist --access public"
     },
     "private": false,
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "@angular/animations": "^6.1.0",
         "@angular/common": "^6.1.0",
