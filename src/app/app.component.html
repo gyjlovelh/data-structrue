@@ -1,3 +1,8 @@
 <p>
   this is index
 </p>
+
+<button (click)="title = title + '1'">attr变化</button>
+<button (click)="text = text + 'a'">text变化</button>
+
+<div id="abc" [title]="title">{{text}}</div>
